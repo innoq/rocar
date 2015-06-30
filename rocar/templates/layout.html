@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>ROCAr</title>
+	{% for url in styles %}
+	<link rel="stylesheet" href="{{ url }}">
+	{% endfor %}
+</head>
+
+<body>
+	<nav>
+		<h1>
+			ROCAr
+			<small>rental company</small>
+		</h1>
+	</nav>
+
+	{% block body %}{% endblock %}
+
+	<footer>
+		created by innoQ, though based on the collective wisdom of web advocates across the globe
+	</footer>
+</body>
+
+</html>
