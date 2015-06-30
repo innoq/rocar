@@ -5,9 +5,9 @@
 	<div class="secondary-pane">
 		<h3>Locations</h3>
 		<ul>
-			<li>Berlin <small>BER</small></li>
-			<li>London <small>LCY</small></li>
-			<li>New York <small>JFK</small></li>
+			{% for id, name in locations.items() %}
+			<li>{{ name }} <small>{{ id }}</small></li>
+			{% endfor %}
 		</ul>
 	</div>
 

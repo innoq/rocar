@@ -1,5 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
 
+from . import store
+
 
 app = Flask(__name__)
 
@@ -11,7 +13,7 @@ def frontpage():
 
 @app.route("/catalog")
 def catalog():
-    return render("catalog.html")
+    return render("catalog.html", locations=store.locations)
 
 
 def render(template, *args, **kwargs):
