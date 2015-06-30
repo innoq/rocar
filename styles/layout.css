@@ -1,0 +1,21 @@
+body {
+	display: flex;
+	width: 90%;
+	min-height: 100vh;
+	margin: 0 auto;
+	flex-direction: column;
+}
+
+.panes {
+	display: flex;
+	flex: 1;
+}
+
+.primary-pane {
+	flex: 1;
+}
+
+.secondary-pane,
+.auxiliary-pane {
+	flex: 0 0 12em;
+}

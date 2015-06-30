@@ -1,0 +1,17 @@
+body {
+	font-family: sans-serif;
+}
+
+nav,
+footer {
+	color: #FFF;
+	background-color: #000;
+}
+
+table {
+	width: 100%;
+}
+
+thead th {
+	text-align: left;
+}
