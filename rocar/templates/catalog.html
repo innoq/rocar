@@ -5,7 +5,7 @@
 	<form action="" method="get" class="secondary-pane">
 		<h3>Locations</h3>
 		<ul class="selectable">
-			{% for loc in locations %}
+			{% for loc in locations|sort(attribute="selected", reverse=True) %}
 			<li>
 				<label>
 					{% if loc.selected %}
@@ -31,9 +31,13 @@
 				<li>luxury</li>
 			</ul>
 
-			<div class="primary-pane">
-				<img src="http://loremflickr.com/g/600/200/map">
-			</div>
+			<ol class="primary-pane">
+				{% for loc in locations|selectattr("selected") %}
+				<li>
+					<a href="geo:{{ loc.coordinates|join(",") }}">{{ loc.name }}</a>
+				</li>
+				{% endfor %}
+			</ol>
 		</div>
 
 		<table>

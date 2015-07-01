@@ -13,10 +13,9 @@ def frontpage():
 
 @app.route("/catalog")
 def catalog():
-    selected_locations = set(request.args.getlist("location"))
-    locations = [Location(id, name, id in selected_locations)
-            for id, name in store.locations.items()]
-    locations.sort(key=lambda l: l.selected, reverse=True)
+    selected_locations = set(request.args.getlist("location")) # XXX: order matters (start vs. end)
+    locations = [Location(id, name, store.coordinates[id],
+            id in selected_locations) for id, name in store.locations.items()]
 
     return render("catalog.html", locations=locations)
 
@@ -29,7 +28,8 @@ def render(template, *args, **kwargs):
 
 class Location:
 
-    def __init__(self, id, name, selected=False):
+    def __init__(self, id, name, coordinates, selected=False):
         self.id = id
         self.name = name
+        self.coordinates = coordinates
         self.selected = selected
