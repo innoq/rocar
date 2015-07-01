@@ -5,7 +5,7 @@
 	<form action="" method="get" id="locations" class="secondary-pane">
 		<h3>Locations</h3>
 		<ul class="selectable">
-			{% for loc in locations|sort(attribute="selected", reverse=True) %}
+			{% for loc in locations | sort(attribute="selected", reverse=True) %}
 			<li>
 				<label>
 					{% if loc.selected %}
@@ -28,7 +28,7 @@
 				{% if vehicle_classes %}
 				<h3>Category</h3>
 				<ul>
-					{% for class in vehicle_classes|sort %}
+					{% for class in vehicle_classes | sort %}
 					<li>{{ class }}</li>
 					{% endfor %}
 				</ul>
@@ -37,7 +37,7 @@
 				{% if vehicle_extras %}
 				<h3>Upgrades</h3>
 				<ul>
-					{% for extra in vehicle_extras|sort %}
+					{% for extra in vehicle_extras | sort %}
 					<li>{{ extra }}</li>
 					{% endfor %}
 				</ul>
@@ -45,9 +45,9 @@
 			</div>
 
 			<ol id="geo-coordinates" class="primary-pane">
-				{% for loc in locations|selectattr("selected") %}
+				{% for loc in locations | selectattr("selected") %}
 				<li>
-					<a href="geo:{{ loc.coordinates|join(",") }}">{{ loc.name }}</a>
+					<a href="geo:{{ loc.coordinates | join(",") }}">{{ loc.name }}</a>
 				</li>
 				{% endfor %}
 			</ol>
