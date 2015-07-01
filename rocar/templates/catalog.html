@@ -2,7 +2,7 @@
 
 {% block body %}
 <main class="panes">
-	<form action="" method="get" class="secondary-pane">
+	<form action="" method="get" id="locations" class="secondary-pane">
 		<h3>Locations</h3>
 		<ul class="selectable">
 			{% for loc in locations|sort(attribute="selected", reverse=True) %}
@@ -24,7 +24,7 @@
 
 	<div class="primary-pane">
 		<div class="panes">
-			<div class="secondary-pane">
+			<div id="vehicle-options" class="secondary-pane">
 				{% if vehicle_classes %}
 				<h3>Category</h3>
 				<ul>
@@ -44,7 +44,7 @@
 				{% endif %}
 			</div>
 
-			<ol class="primary-pane">
+			<ol id="geo-coordinates" class="primary-pane">
 				{% for loc in locations|selectattr("selected") %}
 				<li>
 					<a href="geo:{{ loc.coordinates|join(",") }}">{{ loc.name }}</a>
@@ -81,7 +81,7 @@
 		</table>
 	</div>
 	
-	<div class="auxiliary-pane">
+	<div id="tally" class="auxiliary-pane">
 		128.64 USD
 	</div>
 </main>

@@ -8,12 +8,27 @@ footer {
 	background-color: #000;
 }
 
+nav {
+	padding: 0 0.5em;
+}
+
+footer {
+	padding: 0.5em;
+}
+
 table {
 	width: 100%;
+	border-collapse: collapse;
 }
 
 thead th {
+	padding: 0.5em;
 	text-align: left;
+}
+
+thead tr,
+tbody tr:nth-child(even) { /* XXX: insufficiently generic? */
+	background-color: #EEE;
 }
 
 label { /* XXX: insufficiently generic? */
@@ -23,4 +38,22 @@ label { /* XXX: insufficiently generic? */
 .selectable { /* TODO: rename */
 	padding: 0;
 	list-style-type: none;
+}
+
+#locations,
+#vehicle-options,
+#tally {
+	background-color: #EEE;
+}
+
+#geo-coordinates,
+#geo-coordinates a {
+	color: #FFF;
+}
+
+#geo-coordinates {
+	margin: 0;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	background: linear-gradient(to bottom, #003973 10%, #E5E5BE 90%);
 }
