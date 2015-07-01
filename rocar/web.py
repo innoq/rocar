@@ -17,7 +17,15 @@ def catalog():
     locations = [Location(id, name, store.coordinates[id],
             id in selected_locations) for id, name in store.locations.items()]
 
-    return render("catalog.html", locations=locations)
+    vehicle_classes = set()
+    vehicle_extras = set()
+    for location_id in (selected_locations or store.locations.keys()):
+        for vehicle in store.vehicles.get(location_id, []):
+            vehicle_classes.update(vehicle.get("classes", []))
+            vehicle_extras.update(vehicle.get("extras", []))
+
+    return render("catalog.html", locations=locations,
+            vehicle_classes=vehicle_classes, vehicle_extras=vehicle_extras)
 
 
 def render(template, *args, **kwargs):

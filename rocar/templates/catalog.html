@@ -24,12 +24,25 @@
 
 	<div class="primary-pane">
 		<div class="panes">
-			<ul class="secondary-pane">
-				<li>compact</li>
-				<li>sedan</li>
-				<li>sports</li>
-				<li>luxury</li>
-			</ul>
+			<div class="secondary-pane">
+				{% if vehicle_classes %}
+				<h3>Category</h3>
+				<ul>
+					{% for class in vehicle_classes|sort %}
+					<li>{{ class }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+
+				{% if vehicle_extras %}
+				<h3>Upgrades</h3>
+				<ul>
+					{% for extra in vehicle_extras|sort %}
+					<li>{{ extra }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
 
 			<ol class="primary-pane">
 				{% for loc in locations|selectattr("selected") %}
