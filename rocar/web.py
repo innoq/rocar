@@ -19,13 +19,16 @@ def catalog():
 
     vehicle_classes = set()
     vehicle_extras = set()
+    vehicles = []
     for location_id in (selected_locations or store.locations.keys()):
         for vehicle in store.vehicles.get(location_id, []):
             vehicle_classes.update(vehicle.get("classes", []))
             vehicle_extras.update(vehicle.get("extras", []))
+            vehicles.append(vehicle) # XXX: should only take into account start location?
 
     return render("catalog.html", locations=locations,
-            vehicle_classes=vehicle_classes, vehicle_extras=vehicle_extras)
+            vehicle_classes=vehicle_classes, vehicle_extras=vehicle_extras,
+            vehicles=vehicles)
 
 
 def render(template, *args, **kwargs):

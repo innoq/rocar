@@ -56,27 +56,25 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Designation</th>
+					<th>Model</th>
 					<th>Passengers</th>
 					<th>Cost</th>
 				</tr>
 			</thead>
 			<tbody>
+				{% for vehicle in vehicles | sort(attribute="cost") %}
 				<tr>
-					<td>VW Golf</td>
-					<td>5</td>
-					<td>123.50 USD</td>
+					<td>
+						<label>
+							<input type="radio" name="vehicle"
+									value="{{ vehicle["make"] }} {{ vehicle["model"] }}"> {# XXX: hacky #}
+							{{ vehicle["make"] }} {{ vehicle["model"] }}
+						</label>
+					</td>
+					<td>{{ vehicle["passengers"] }}</td>
+					<td>{{ "%0.2f" | format(vehicle["cost"] | float) }}</td>
 				</tr>
-				<tr>
-					<td>BMW 5-Series</td>
-					<td>5</td>
-					<td>257.12 USD</td>
-				</tr>
-				<tr>
-					<td>Toyota Prius</td>
-					<td>4</td>
-					<td>194.77 USD</td>
-				</tr>
+				{% endfor %}
 			</tbody>
 		</table>
 	</div>
