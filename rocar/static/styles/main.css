@@ -15,3 +15,12 @@ table {
 thead th {
 	text-align: left;
 }
+
+label { /* XXX: insufficiently generic? */
+	cursor: pointer;
+}
+
+.selectable { /* TODO: rename */
+	padding: 0;
+	list-style-type: none;
+}

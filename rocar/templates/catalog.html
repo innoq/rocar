@@ -2,14 +2,25 @@
 
 {% block body %}
 <main class="panes">
-	<div class="secondary-pane">
+	<form action="" method="get" class="secondary-pane">
 		<h3>Locations</h3>
-		<ul>
-			{% for id, name in locations.items() %}
-			<li>{{ name }} <small>{{ id }}</small></li>
+		<ul class="selectable">
+			{% for loc in locations %}
+			<li>
+				<label>
+					{% if loc.selected %}
+					<input type="checkbox" name="location" value="{{ loc.id }}"
+							checked>
+					{% else %}
+					<input type="radio" name="location" value="{{ loc.id }}">
+					{% endif %}
+					{{ loc.name }}
+				</label>
+			</li>
 			{% endfor %}
 		</ul>
-	</div>
+		<button type="submit">auswählen</button>
+	</form>
 
 	<div class="primary-pane">
 		<div class="panes">
