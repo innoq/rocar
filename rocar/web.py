@@ -12,21 +12,48 @@ def frontpage():
 
 
 @app.route("/catalog")
-def catalog():
+def catalog(): # TODO: move filtering into store module
     selected_locations = set(request.args.getlist("location")) # XXX: order matters (start vs. end)
     locations = [Location(id, name, store.coordinates[id],
             id in selected_locations) for id, name in store.locations.items()]
 
+    selected_vehicle_classes = set(request.args.getlist("vehicle-class"))
     vehicle_classes = set()
+    selected_vehicle_extras = set(request.args.getlist("vehicle-extra"))
     vehicle_extras = set()
     vehicles = []
     for location_id in (selected_locations or store.locations.keys()):
         for vehicle in store.vehicles.get(location_id, []):
-            vehicle_classes.update(vehicle.get("classes", []))
-            vehicle_extras.update(vehicle.get("extras", []))
+            classes = [Selectable(id, id, id in selected_vehicle_classes)
+                    for id in vehicle.get("classes", [])]
+            vehicle_classes.update(classes)
+
+            extras = [Selectable(id, id, id in selected_vehicle_extras)
+                    for id in vehicle.get("extras", [])]
+            vehicle_extras.update(extras)
+
             vehicles.append(vehicle) # XXX: should only take into account start location?
 
-    return render("catalog.html", locations=locations,
+    vehicles = [vehicle for vehicle in vehicles if # XXX: inefficient
+            (
+                len(selected_vehicle_classes) == 0
+                or
+                set(vehicle.get("classes", [])).
+                        intersection(selected_vehicle_classes)
+            ) and (
+                len(selected_vehicle_extras) == 0 or
+                set(vehicle.get("extras", [])).
+                        issuperset(selected_vehicle_extras)
+            )
+    ]
+
+    selection = {
+        "location": selected_locations,
+        "vehicle-class": selected_vehicle_classes,
+        "vehicle-extra": selected_vehicle_extras
+    }
+
+    return render("catalog.html", selection_state=selection, locations=locations,
             vehicle_classes=vehicle_classes, vehicle_extras=vehicle_extras,
             vehicles=vehicles)
 
@@ -37,10 +64,32 @@ def render(template, *args, **kwargs):
     return render_template(template, *args, **kwargs)
 
 
-class Location:
+class Selectable:
 
-    def __init__(self, id, name, coordinates, selected=False):
+    def __init__(self, id, name, selected=False):
         self.id = id
         self.name = name
-        self.coordinates = coordinates
         self.selected = selected
+
+    def __lt__(self, other):
+        return self.id < other.id
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def __repr__(self):
+        return """<%s %s "%s" %s>""" % (self.__class__.__name__, self.id,
+                self.name, "✓" if self.selected else "✗")
+
+
+class Location(Selectable):
+
+    def __init__(self, id, name, coordinates, selected=False):
+        super().__init__(id, name, selected)
+        self.coordinates = coordinates
+
+    def __repr__(self):
+        return "%s %s>" % (super().__repr__()[:-1], self.coordinates)

@@ -1,8 +1,25 @@
 {% extends "layout.html" %}
 
+{% macro form_with_state(action, method, exclude_states=[]) %}
+<form action="{{ action }}" method="{{ method }}"
+		{% for key, value in kwargs.items() -%}
+		{{ key }}="{{ value }}"
+		{% endfor %}>
+	{%- for name, ids in selection_state.items() -%}
+		{% if name not in exclude_states %}
+			{%- for id in ids -%}
+			<input type="hidden" name="{{ name }}" value="{{ id }}">
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+	{{ caller() }}
+</form>
+{% endmacro %}
+
 {% block body %}
 <main class="panes">
-	<form action="" method="get" id="locations" class="secondary-pane">
+	{% call form_with_state("", "get", ["location"], id="locations",
+			class="secondary-pane") %}
 		<h3>Locations</h3>
 		<ul class="selectable">
 			{% for loc in locations | sort(attribute="selected", reverse=True) %}
@@ -20,27 +37,47 @@
 			{% endfor %}
 		</ul>
 		<button type="submit">auswählen</button>
-	</form>
+	{% endcall %}
 
 	<div class="primary-pane">
 		<div class="panes">
 			<div id="vehicle-options" class="secondary-pane">
 				{% if vehicle_classes %}
-				<h3>Category</h3>
-				<ul>
-					{% for class in vehicle_classes | sort %}
-					<li>{{ class }}</li>
-					{% endfor %}
-				</ul>
+				{% call form_with_state("", "get", ["vehicle-class"]) %}
+					<h3>Category</h3>
+					<ul class="selectable">
+						{% for class in vehicle_classes | sort %}
+						<li>
+							<label>
+								<input type="checkbox" name="vehicle-class"
+										value="{{ class.id }}"
+										{{ "checked" if class.selected }}>
+								{{ class.name }}
+							</label>
+						</li>
+						{% endfor %}
+					</ul>
+					<button type="submit">auswählen</button>
+				{% endcall %}
 				{% endif %}
 
 				{% if vehicle_extras %}
-				<h3>Upgrades</h3>
-				<ul>
-					{% for extra in vehicle_extras | sort %}
-					<li>{{ extra }}</li>
-					{% endfor %}
-				</ul>
+				{% call form_with_state("", "get", ["vehicle-extra"]) %}
+					<h3>Upgrades</h3>
+					<ul class="selectable">
+						{% for extra in vehicle_extras | sort %}
+						<li>
+							<label>
+								<input type="checkbox" name="vehicle-extra"
+										value="{{ extra.id }}"
+										{{ "checked" if extra.selected }}>
+								{{ extra.name }}
+							</label>
+						</li>
+						{% endfor %}
+					</ul>
+					<button type="submit">auswählen</button>
+				{% endcall %}
 				{% endif %}
 			</div>
 
@@ -78,7 +115,7 @@
 			</tbody>
 		</table>
 	</div>
-	
+
 	<div id="tally" class="auxiliary-pane">
 		128.64 USD
 	</div>
