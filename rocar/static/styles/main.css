@@ -3,8 +3,13 @@ body {
 }
 
 nav,
+nav a,
 footer {
 	color: #FFF;
+}
+
+nav,
+footer {
 	background-color: #000;
 }
 
