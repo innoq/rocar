@@ -64,8 +64,9 @@ def catalog(): # TODO: move filtering into store module
 
 
 def render(template, *args, **kwargs):
-    kwargs["styles"] = (url_for("static", filename="styles/%s" % name)
-            for name in ["layout.css", "main.css"])
+    kwargs["styles"] = [url_for("static", filename=name) for name
+            in ["styles/layout.css", "styles/main.css", "vendor/leaflet.css"]]
+    kwargs["scripts"] = [url_for("static", filename="bundle.js")]
     return render_template(template, *args, **kwargs)
 
 

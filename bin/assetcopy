@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+import os
+import shutil
+
+
+vendor_dir = "rocar/static/vendor/"
+
+assets = {
+	"node_modules/leaflet/dist/leaflet.css": vendor_dir,
+	"node_modules/leaflet/dist/images": "%s/leaflet_images" % vendor_dir
+}
+
+shutil.rmtree(vendor_dir, ignore_errors=True)
+os.makedirs(vendor_dir, exist_ok=True)
+for src, dst in assets.items():
+	try:
+		shutil.copy2(src, dst)
+	except IsADirectoryError:
+		shutil.copytree(src, dst)

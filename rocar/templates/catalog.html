@@ -79,13 +79,15 @@
 				{% endif %}
 			</div>
 
-			<ol id="geo-coordinates" class="primary-pane">
-				{% for loc in locations | selectattr("selected") %}
-				<li>
-					<a href="geo:{{ loc.coordinates | join(",") }}">{{ loc.name }}</a>
-				</li>
-				{% endfor %}
-			</ol>
+			<div class="primary-pane">
+				<ol id="geo-coordinates">
+					{% for loc in locations | selectattr("selected") %}
+					<li>
+						<a href="geo:{{ loc.coordinates | join(",") }}">{{ loc.name }}</a>
+					</li>
+					{% endfor %}
+				</ol>
+			</div>
 		</div>
 
 		{% call form_with_state("", "get", ["vehicle"]) %}

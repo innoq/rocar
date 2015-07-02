@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "dev": "webpack --progress --colors --watch",
+    "dist": "webpack",
+    "assets": "./bin/assetcopy"
+  },
+  "dependencies": {
+    "leaflet": "^0.7.3",
+    "uitil": "git+https://github.com/FND/uitil.git"
+  },
+  "devDependencies": {
+    "webpack": "^1.10.0"
+  }
+}

@@ -22,6 +22,10 @@
 	<footer>
 		created by innoQ, though based on the collective wisdom of web advocates across the globe
 	</footer>
+
+	{% for url in scripts %}
+	<script src="{{ url }}"></script>
+	{% endfor %}
 </body>
 
 </html>
