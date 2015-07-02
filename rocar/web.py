@@ -34,7 +34,11 @@ def catalog(): # TODO: move filtering into store module
 
             vehicles.append(vehicle) # XXX: should only take into account start location?
 
-    vehicles = [vehicle for vehicle in vehicles if # XXX: inefficient
+    selected_vehicle_id = request.args.get("vehicle", None)
+    vehicles = [Vehicle(vehicle["id"],
+                    "%s %s" % (vehicle["make"], vehicle["model"]),
+                    vehicle["cost"], str(vehicle["id"]) == selected_vehicle_id)
+            for vehicle in vehicles if # XXX: inefficient
             (
                 len(selected_vehicle_classes) == 0
                 or
@@ -46,16 +50,17 @@ def catalog(): # TODO: move filtering into store module
                         issuperset(selected_vehicle_extras)
             )
     ]
+    selected_vehicle = next((v for v in vehicles if v.selected), None) # XXX: inefficient
 
     selection = {
         "location": selected_locations,
         "vehicle-class": selected_vehicle_classes,
-        "vehicle-extra": selected_vehicle_extras
+        "vehicle-extra": selected_vehicle_extras,
+        "vehicle": [selected_vehicle_id]
     }
-
     return render("catalog.html", selection_state=selection, locations=locations,
             vehicle_classes=vehicle_classes, vehicle_extras=vehicle_extras,
-            vehicles=vehicles)
+            vehicles=vehicles, vehicle=selected_vehicle)
 
 
 def render(template, *args, **kwargs):
@@ -93,3 +98,13 @@ class Location(Selectable):
 
     def __repr__(self):
         return "%s %s>" % (super().__repr__()[:-1], self.coordinates)
+
+
+class Vehicle(Selectable):
+
+    def __init__(self, id, name, cost, selected=False):
+        super().__init__(id, name, selected)
+        self.cost = cost
+
+    def __repr__(self):
+        return "%s %s>" % (super().__repr__()[:-1], self.cost)

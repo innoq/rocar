@@ -13,6 +13,7 @@ coordinates = { # latitude, longitude
 vehicles = { # by location -- XXX: why not simply an attribute?
     "BER": [
         {
+            "id": 1,
             "make": "BMW",
             "model": "5-Series",
             "classes": ["luxury"],
@@ -20,6 +21,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "cost": 257.12,
             "extras": ["ac", "nav", "hud"]
         }, {
+            "id": 2,
             "make": "Audi",
             "model": "S6",
             "classes": ["sports", "luxury"],
@@ -27,6 +29,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "cost": 234.28,
             "extras": ["4wd", "ac", "nav"]
         }, {
+            "id": 3,
             "make": "VW",
             "model": "Golf",
             "classes": ["compact"],
@@ -34,6 +37,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "cost": 160.88,
             "extras": ["ac", "nav"]
         }, {
+            "id": 4,
             "make": "Toyota",
             "model": "Corolla",
             "classes": ["sedan"],
@@ -44,6 +48,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
     ],
     "LAX": [
         {
+            "id": 5,
             "make": "Ford",
             "model": "Mustang",
             "classes": ["sports"],
@@ -54,6 +59,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
     ],
     "LCY": [
         {
+            "id": 6,
             "make": "Lotus",
             "model": "Elise",
             "classes": ["sports"],
@@ -61,6 +67,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "cost": 279.49,
             "extras": []
         }, {
+            "id": 7,
             "make": "Jaguar",
             "model": "XF",
             "classes": ["luxury"],
