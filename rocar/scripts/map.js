@@ -1,3 +1,6 @@
+/*jslint vars: true, node: true, browser: true, white: true */
+"use strict";
+
 var leaflet = require("leaflet/dist/leaflet-src");
 var dom = require("uitil/dom");
 
@@ -13,18 +16,18 @@ module.exports = function(container) {
 	wrapper.style.height = "100%"; // XXX: insufficiently generic?
 	dom.replaceNode(container, wrapper);
 
-	var map = L.map(wrapper);
-	L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+	var map = leaflet.map(wrapper);
+	leaflet.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
 	}).addTo(map);
 
 	map.setView(origin, 5);
 	if(coordinates.length) {
 		var points = coordinates.map(function(latLong) {
-			var marker = L.marker(latLong).addTo(map);
+			var marker = leaflet.marker(latLong).addTo(map);
 			return marker.getLatLng();
 		});
-		var path = L.polyline(points).addTo(map);
+		var path = leaflet.polyline(points).addTo(map);
 		// auto-zoom
 		map.fitBounds(path.getBounds());
 	}
