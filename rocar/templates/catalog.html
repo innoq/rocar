@@ -20,7 +20,8 @@
 {% block body %}
 <main class="panes">
 	{% call form_with_state("", "get", ["location"], id="locations",
-			class="secondary-pane") %}
+			class="secondary-pane formix formix-sub",
+			**{ "data-sub": "location" }) %}
 		<h3>Locations</h3>
 		<ul class="selectable">
 			{% for loc in locations | sort(attribute="selected", reverse=True) %}
@@ -41,9 +42,11 @@
 
 	<div class="primary-pane">
 		<div class="panes">
-			<div id="vehicle-options" class="secondary-pane">
+			<div id="vehicle-options" class="secondary-pane formix-sub"
+					data-sub="location vehicle-class vehicle-extra">
 				{% if vehicle_classes %}
-				{% call form_with_state("", "get", ["vehicle-class"]) %}
+				{% call form_with_state("", "get", ["vehicle-class"],
+						class="formix") %}
 					<h3>Category</h3>
 					<ul class="selectable">
 						{% for class in vehicle_classes | sort %}
@@ -61,7 +64,8 @@
 				{% endif %}
 
 				{% if vehicle_extras %}
-				{% call form_with_state("", "get", ["vehicle-extra"]) %}
+				{% call form_with_state("", "get", ["vehicle-extra"],
+						class="formix") %}
 					<h3>Upgrades</h3>
 					<ul class="selectable">
 						{% for extra in vehicle_extras | sort %}
@@ -79,8 +83,9 @@
 				{% endif %}
 			</div>
 
-			<div class="primary-pane">
-				<ol id="geo-coordinates">
+			<div id="geo-view" class="primary-pane formix-sub"
+					data-sub="location">
+				<ol class="geo-coordinates">
 					{% for loc in locations | selectattr("selected") %}
 					<li>
 						<a href="geo:{{ loc.coordinates | join(",") }}">{{ loc.name }}</a>
@@ -90,8 +95,9 @@
 			</div>
 		</div>
 
-		{% call form_with_state("", "get", ["vehicle"]) %}
-			<table>
+		{% call form_with_state("", "get", ["vehicle"], class="formix") %}
+			<table id="vehicles" class="formix-sub"
+					data-sub="location vehicle-class vehicle-extra">
 				<thead>
 					<tr>
 						<th>Model</th>
@@ -119,7 +125,7 @@
 		{% endcall %}
 	</div>
 
-	<div id="tally" class="auxiliary-pane">
+	<div id="tally" class="auxiliary-pane formix-sub" data-sub="vehicle">
 		{% if vehicle %}
 		<p>${{ vehicle.cost }}</p>
 		{% endif %}

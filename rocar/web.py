@@ -56,7 +56,7 @@ def catalog(): # TODO: move filtering into store module
         "location": selected_locations,
         "vehicle-class": selected_vehicle_classes,
         "vehicle-extra": selected_vehicle_extras,
-        "vehicle": [selected_vehicle_id]
+        "vehicle": [selected_vehicle_id] if selected_vehicle_id else []
     }
     return render("catalog.html", selection_state=selection, locations=locations,
             vehicle_classes=vehicle_classes, vehicle_extras=vehicle_extras,

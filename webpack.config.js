@@ -3,5 +3,10 @@ module.exports = {
 	output: {
 		path: __dirname + "/rocar/static",
 		filename: "bundle.js"
+	},
+	module: {
+		loaders: [
+			{ test: /\.coffee$/, loader: "coffee-loader" }
+		]
 	}
 };

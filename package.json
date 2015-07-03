@@ -5,10 +5,13 @@
     "assets": "./bin/assetcopy"
   },
   "dependencies": {
+    "formix": "git+https://github.com/innoq/formix.git",
+    "jquery": "^2.1.4",
     "leaflet": "^0.7.3",
     "uitil": "git+https://github.com/FND/uitil.git"
   },
   "devDependencies": {
+    "coffee-loader": "^0.7.2",
     "webpack": "^1.10.0"
   }
 }
