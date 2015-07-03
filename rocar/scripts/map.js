@@ -18,13 +18,15 @@ module.exports = function(container) {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
 	}).addTo(map);
 
-	var markers = coordinates.map(function(latLong) {
-		return L.marker(latLong).addTo(map);
-	});
 	map.setView(origin, 5);
-	if(markers.length) { // auto-zoom
-		var group = new L.featureGroup(markers);
-		map.fitBounds(group.getBounds());
+	if(coordinates.length) {
+		var points = coordinates.map(function(latLong) {
+			var marker = L.marker(latLong).addTo(map);
+			return marker.getLatLng();
+		});
+		var path = L.polyline(points).addTo(map);
+		// auto-zoom
+		map.fitBounds(path.getBounds());
 	}
 };
 
