@@ -46,6 +46,25 @@ label { /* XXX: insufficiently generic? */
 	list-style-type: none;
 }
 
+.location:before,
+.vehicle:before {
+	content: "";
+	display: inline-block;
+	height: 21px;
+}
+
+.location:before {
+	width: 12px;
+	background-image: url("/static/img/map-marker.svg"); /* source: Font Awesome */
+	background-size: 12px 21px;
+}
+
+.vehicle:before {
+	width: 24px;
+	background-image: url("/static/img/automobile.svg"); /* source: Font Awesome */
+	background-size: 24px 21px;
+}
+
 #locations,
 #vehicle-options,
 #tally {
