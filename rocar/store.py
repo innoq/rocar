@@ -39,15 +39,39 @@ for location_id, data in locations.items():
     location["summary"] = summary
     location["details"] = details
 
+vehicle_info = {
+    "BMW": {
+        "7-Series": "chauffeur not included"
+    },
+    "Audi": {
+        "S6": "for when you can't afford a Beamer"
+    },
+    "VW": {
+        "Golf": "compensatory customizations optional"
+    },
+    "Toyota": {
+        "Corolla": "zzzZZZzzz"
+    },
+    "Ford": {
+        "Mustang": "from 60 to 0 gallons in 3.4 minutes"
+    },
+    "Lotus": {
+        "Elise": "almost like driving a go-kart"
+    },
+    "Jaguar": {
+        "XF": "requires proof of age (60 upwards)"
+    }
+}
+
 vehicles = { # by location -- XXX: why not simply an attribute?
     "BER": [
         {
             "id": 1,
             "make": "BMW",
-            "model": "5-Series",
+            "model": "7-Series",
             "classes": ["luxury"],
             "passengers": 5,
-            "cost": 257.12,
+            "cost": 357.12,
             "extras": ["ac", "gps", "hud"]
         }, {
             "id": 2,

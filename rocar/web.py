@@ -90,6 +90,16 @@ def location(location_id):
     return render("location.html", location=location)
 
 
+@app.route("/vehicles/<make>/<model>")
+def vehicle(make, model):
+    try:
+        desc = store.vehicle_info[make][model]
+    except KeyError:
+        abort(404)
+
+    return render("vehicle.html", make=make, model=model, desc=desc)
+
+
 def render(template, *args, **kwargs):
     kwargs["styles"] = [url_for("static", filename=name) for name
             in ["styles/layout.css", "styles/main.css", "vendor/leaflet.css"]]
