@@ -1,4 +1,6 @@
+{% if not xhr %}
 {% extends "layout.html" %}
+{% endif %}
 
 {% macro form_with_state(action, method, exclude_states=[]) %}
 <form action="{{ action }}" method="{{ method }}"

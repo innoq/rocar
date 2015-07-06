@@ -1,4 +1,6 @@
+{% if not xhr %}
 {% extends "layout.html" %}
+{% endif %}
 
 {% block body %}
 <h2>{{ _(location.id) }}</h2>

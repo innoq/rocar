@@ -59,10 +59,7 @@ def catalog(): # TODO: move filtering into store module
     ]
     selected_vehicle = next((v for v in vehicles if v.selected), None) # XXX: inefficient
 
-    current_url = None
-    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-        current_url = url_for("catalog", **request.args) # XXX: hacky?
-
+    current_url = url_for("catalog", **request.args) if request.is_xhr else None # XXX: parameter handling hacky?
     selection = {
         "location": selected_locations,
         "vehicle-class": selected_vehicle_classes,
@@ -134,6 +131,7 @@ def vehicle(make, model):
 
 
 def render(template, *args, **kwargs):
+    kwargs["xhr"] = request.is_xhr
     kwargs["styles"] = [url_for("static", filename=name) for name
             in ["styles/layout.css", "styles/main.css", "vendor/leaflet.css"]]
     kwargs["scripts"] = [url_for("static", filename="bundle.js")]
