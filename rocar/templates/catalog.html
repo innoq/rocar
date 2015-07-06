@@ -95,9 +95,10 @@
 			</div>
 		</div>
 
-		{% call form_with_state("", "get", ["vehicle"], class="formix") %}
-			<table id="vehicles" class="formix-sub"
-					data-sub="location vehicle-class vehicle-extra">
+		{% call form_with_state("", "get", ["vehicle"], id="vehicles",
+				class="formix formix-sub",
+				**{ "data-sub": "location vehicle-class vehicle-extra" }) %}
+			<table>
 				<thead>
 					<tr>
 						<th>Model</th>
