@@ -5,6 +5,7 @@ var $ = require("jquery");
 global.jQuery = $; // required for formix -- XXX: should not be necessary
 var spawnMap = require("./map");
 var formix = require("formix");
+var simplete = require("simplete");
 
 var historySupport = window.history && history.pushState;
 if(historySupport) {
@@ -17,6 +18,10 @@ function init(subtree) {
 	extract(".formix", subtree).each(function(i, form) {
 		formix(form, { after: onUpdate });
 		$("input:submit, button:submit", form).remove();
+	});
+
+	extract(".omnibox input[type=search]", subtree).each(function(i, field) {
+		simplete(field);
 	});
 
 	extract(".geo-coordinates", subtree).each(function(i, list) {

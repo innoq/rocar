@@ -3,10 +3,12 @@
 {% endif %}
 
 {% block body %}
+{% if not xhr %}
 <form action="" method="get">
 	<input type="search" name="q">
 	<button>search</button>
 </form>
+{% endif %}
 
 <ul>
 	{% for result in results %}

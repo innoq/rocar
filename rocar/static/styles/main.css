@@ -41,6 +41,29 @@ label { /* XXX: insufficiently generic? */
 	cursor: pointer;
 }
 
+.omnibox {
+	position: relative;
+	float: right;
+	width: 10em;
+}
+
+.suggestions {
+	position: absolute;
+	min-width: 100%;
+	z-index: 9;
+	background-color: #EEE;
+}
+
+.suggestions ul {
+	padding-left: 0;
+	list-style-type: none;
+}
+
+.suggestions,
+.suggestions a {
+	color: #000;
+}
+
 .selectable { /* TODO: rename */
 	padding: 0;
 	list-style-type: none;
