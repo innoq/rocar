@@ -127,7 +127,11 @@
 
 	<div id="tally" class="auxiliary-pane formix-sub" data-sub="vehicle">
 		{% if vehicle %}
+		<h3>Total Cost</h3>
 		<p>${{ vehicle.cost }}</p>
+		<p>${{ (vehicle.cost / 12) | round(2) }} insurance fee</p>
+		<hr>
+		<p><strong>${{ (vehicle.cost + vehicle.cost / 12) | round(2) }}</strong></p>
 		{% endif %}
 	</div>
 </main>
