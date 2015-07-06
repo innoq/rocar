@@ -6,6 +6,11 @@ global.jQuery = $; // required for formix -- XXX: should not be necessary
 var spawnMap = require("./map");
 var formix = require("formix");
 
+var historySupport = window.history && history.pushState;
+if(historySupport) {
+	window.addEventListener("popstate", onPopState);
+}
+
 init();
 
 function init(subtree) {
@@ -20,7 +25,20 @@ function init(subtree) {
 }
 
 function onUpdate(form, field, replacements, url, title) {
+	if(url && historySupport && url !== document.location.toString()) {
+		history.pushState(null, title, url);
+	}
+
 	init(replacements);
+}
+
+function onPopState(ev) {
+	// some browsers (notably Safari, but also older versions of Chrome) fire
+	// the "popstate" event on initial page load, then without any state
+	if(ev.state) {
+		// reload to avoid application-specific caching
+		document.location = document.location.toString();
+	}
 }
 
 function extract(selector, subtree) {

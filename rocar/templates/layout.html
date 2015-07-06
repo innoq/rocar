@@ -7,6 +7,9 @@
 	{% for url in styles %}
 	<link rel="stylesheet" href="{{ url }}">
 	{% endfor %}
+	{% if current_url %}
+	<link rel="self" href="{{ current_url }}">
+	{% endif %}
 </head>
 
 <body>

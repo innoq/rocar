@@ -52,13 +52,18 @@ def catalog(): # TODO: move filtering into store module
     ]
     selected_vehicle = next((v for v in vehicles if v.selected), None) # XXX: inefficient
 
+    current_url = None
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        current_url = url_for("catalog", **request.args) # XXX: hacky?
+
     selection = {
         "location": selected_locations,
         "vehicle-class": selected_vehicle_classes,
         "vehicle-extra": selected_vehicle_extras,
         "vehicle": [selected_vehicle_id] if selected_vehicle_id else []
     }
-    return render("catalog.html", selection_state=selection, locations=locations,
+    return render("catalog.html", current_url=current_url,
+            selection_state=selection, locations=locations,
             vehicle_classes=vehicle_classes, vehicle_extras=vehicle_extras,
             vehicles=vehicles, vehicle=selected_vehicle)
 
