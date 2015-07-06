@@ -43,7 +43,8 @@ def catalog(): # TODO: move filtering into store module
     selected_vehicle_id = request.args.get("vehicle", None)
     vehicles = [Vehicle(vehicle["id"],
                     "%s %s" % (vehicle["make"], vehicle["model"]),
-                    vehicle["cost"], str(vehicle["id"]) == selected_vehicle_id)
+                    vehicle["passengers"], vehicle["cost"],
+                    str(vehicle["id"]) == selected_vehicle_id)
             for vehicle in vehicles if # XXX: inefficient
             (
                 len(selected_vehicle_classes) == 0
@@ -114,8 +115,9 @@ class Location(Selectable):
 
 class Vehicle(Selectable):
 
-    def __init__(self, id, name, cost, selected=False):
+    def __init__(self, id, name, passengers, cost, selected=False):
         super().__init__(id, name, selected)
+        self.passengers = passengers
         self.cost = cost
 
     def __repr__(self):
