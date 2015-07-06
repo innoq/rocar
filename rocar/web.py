@@ -17,16 +17,18 @@ def frontpage():
 
 @app.route("/catalog")
 def catalog(): # TODO: move filtering into store module
+    location_ids = store.vehicles.keys()
+
     selected_locations = set(request.args.getlist("location")) # XXX: order matters (start vs. end)
-    locations = [Location(id, name, store.coordinates[id],
-            id in selected_locations) for id, name in store.locations.items()]
+    locations = [Location(id, store.coordinates[id], id in selected_locations)
+            for id in location_ids]
 
     selected_vehicle_classes = set(request.args.getlist("vehicle-class"))
     vehicle_classes = set()
     selected_vehicle_extras = set(request.args.getlist("vehicle-extra"))
     vehicle_extras = set()
     vehicles = []
-    for location_id in (selected_locations or store.locations.keys()):
+    for location_id in (selected_locations or location_ids):
         for vehicle in store.vehicles.get(location_id, []):
             classes = [Selectable(id, id, id in selected_vehicle_classes)
                     for id in vehicle.get("classes", [])]
@@ -102,8 +104,8 @@ class Selectable:
 
 class Location(Selectable):
 
-    def __init__(self, id, name, coordinates, selected=False):
-        super().__init__(id, name, selected)
+    def __init__(self, id, coordinates, selected=False):
+        super().__init__(id, i18n.gettext(id), selected)
         self.coordinates = coordinates
 
     def __repr__(self):
