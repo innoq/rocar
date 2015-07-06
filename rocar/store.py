@@ -38,6 +38,7 @@ for location_id, data in locations.items():
     location = locations[location_id]
     location["summary"] = summary
     location["details"] = details
+    location.pop("desc")
 
 vehicle_info = {
     "BMW": {
