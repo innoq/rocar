@@ -75,6 +75,7 @@ def catalog(): # TODO: move filtering into store module
 @app.route("/search")
 def search(): # XXX: very inefficient
     query = request.args.get("q", None)
+    message = None
 
     results = []
     if query:
@@ -102,7 +103,28 @@ def search(): # XXX: very inefficient
                         "url": url_for("vehicle", make=make, model=model)
                     })
 
-    return render("search.html", results=results)
+        if not results:
+            message = "no results for '%s'" % query
+    else:
+        message = "current promotions"
+        results = [{
+            "type": "vehicle",
+            "name": "VW Beetle",
+            "desc": "feature creep",
+            "url": url_for("frontpage") # TODO
+        }, {
+            "type": "vehicle",
+            "name": "Ford F-150",
+            "desc": "because sometimes there are pebbles on the road",
+            "url": url_for("frontpage") # TODO
+        }, {
+            "type": "location",
+            "name": "Sydney",
+            "desc": "celebrating Shark Week, every week",
+            "url": url_for("frontpage") # TODO
+        }]
+
+    return render("search.html", results=results, message=message)
 
 
 @app.route("/locations/<location_id>")

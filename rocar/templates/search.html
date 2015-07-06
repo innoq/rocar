@@ -10,6 +10,10 @@
 </form>
 {% endif %}
 
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+
 <ul>
 	{% for result in results %}
 	<li class="{{ result.type }}">
