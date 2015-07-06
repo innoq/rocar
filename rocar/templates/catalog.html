@@ -74,7 +74,7 @@
 								<input type="checkbox" name="vehicle-extra"
 										value="{{ extra.id }}"
 										{{ "checked" if extra.selected }}>
-								{{ extra.name }}
+								{{ _(extra.name) }}
 							</label>
 						</li>
 						{% endfor %}

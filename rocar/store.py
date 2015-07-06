@@ -19,7 +19,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "classes": ["luxury"],
             "passengers": 5,
             "cost": 257.12,
-            "extras": ["ac", "nav", "hud"]
+            "extras": ["ac", "gps", "hud"]
         }, {
             "id": 2,
             "make": "Audi",
@@ -27,7 +27,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "classes": ["sports", "luxury"],
             "passengers": 5,
             "cost": 234.28,
-            "extras": ["4wd", "ac", "nav"]
+            "extras": ["4wd", "ac", "gps"]
         }, {
             "id": 3,
             "make": "VW",
@@ -35,7 +35,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "classes": ["compact"],
             "passengers": 4,
             "cost": 160.88,
-            "extras": ["ac", "nav"]
+            "extras": ["ac", "gps"]
         }, {
             "id": 4,
             "make": "Toyota",
@@ -43,7 +43,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "classes": ["sedan"],
             "passengers": 4,
             "cost": 153.70,
-            "extras": ["ac", "nav"]
+            "extras": ["ac", "gps"]
         }
     ],
     "LAX": [
@@ -73,7 +73,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "classes": ["luxury"],
             "passengers": 5,
             "cost": 290.65,
-            "extras": ["ac", "nav"]
+            "extras": ["ac", "gps"]
         }
     ]
 }

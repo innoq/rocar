@@ -1,9 +1,13 @@
 from flask import Flask, render_template, redirect, url_for, request
 
 from . import store
+from . import i18n
 
 
 app = Flask(__name__)
+# l10n
+app.jinja_env.add_extension("jinja2.ext.i18n")
+app.jinja_env.install_gettext_callables(i18n.gettext, i18n.ngettext)
 
 
 @app.route("/")
