@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, abort, url_for, request
 
 from . import store
 from . import i18n
@@ -20,8 +20,8 @@ def catalog(): # TODO: move filtering into store module
     location_ids = store.vehicles.keys()
 
     selected_locations = set(request.args.getlist("location")) # XXX: order matters (start vs. end)
-    locations = [Location(id, store.coordinates[id], id in selected_locations)
-            for id in location_ids]
+    locations = [Location(id, store.locations[id]["coordinates"],
+            id in selected_locations) for id in location_ids]
 
     selected_vehicle_classes = set(request.args.getlist("vehicle-class"))
     vehicle_classes = set()
@@ -73,6 +73,21 @@ def catalog(): # TODO: move filtering into store module
             selection_state=selection, locations=locations,
             vehicle_classes=vehicle_classes, vehicle_extras=vehicle_extras,
             vehicles=vehicles, vehicle=selected_vehicle)
+
+
+@app.route("/locations/<location_id>")
+def location(location_id):
+    try:
+        meta = store.locations[location_id]
+    except KeyError:
+        abort(404)
+
+    location = {
+        "id": location_id,
+        "summary": meta["summary"],
+        "details": meta["details"]
+    }
+    return render("location.html", location=location)
 
 
 def render(template, *args, **kwargs):
