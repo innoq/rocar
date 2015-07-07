@@ -24,21 +24,8 @@ def catalog(): # TODO: move filtering into store module
             id in selected_locations) for id in location_ids]
 
     selected_vehicle_classes = set(request.args.getlist("vehicle-class"))
-    vehicle_classes = set()
     selected_vehicle_extras = set(request.args.getlist("vehicle-extra"))
-    vehicle_extras = set()
-    vehicles = []
-    for location_id in (selected_locations or location_ids):
-        for vehicle in store.vehicles.get(location_id, []):
-            classes = [Selectable(id, id, id in selected_vehicle_classes)
-                    for id in vehicle.get("classes", [])]
-            vehicle_classes.update(classes)
-
-            extras = [Selectable(id, id, id in selected_vehicle_extras)
-                    for id in vehicle.get("extras", [])]
-            vehicle_extras.update(extras)
-
-            vehicles.append(vehicle) # XXX: should only take into account start location?
+    vehicles, vehicle_classes, vehicle_extras = store.get_vehicles(selected_locations)
 
     selected_vehicle_id = request.args.get("vehicle", None)
     vehicles = [Vehicle(vehicle["id"],
@@ -68,7 +55,10 @@ def catalog(): # TODO: move filtering into store module
     }
     return render("catalog.html", current_url=current_url,
             selection_state=selection, locations=locations,
-            vehicle_classes=vehicle_classes, vehicle_extras=vehicle_extras,
+            vehicle_classes=(Selectable(id, id, id in selected_vehicle_classes)
+                    for id in vehicle_classes),
+            vehicle_extras=(Selectable(id, id, id in selected_vehicle_extras)
+                    for id in vehicle_extras),
             vehicles=vehicles, vehicle=selected_vehicle)
 
 

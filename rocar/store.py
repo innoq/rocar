@@ -1,5 +1,19 @@
 from textwrap import dedent
 
+def get_vehicles(location_ids=None):
+    location_ids = location_ids or vehicles.keys()
+
+    vehicle_classes = set()
+    vehicle_extras = set()
+    _vehicles = []
+    for location_id in location_ids:
+        for vehicle in vehicles.get(location_id, []):
+            vehicle_classes.update(vehicle.get("classes", []))
+            vehicle_extras.update(vehicle.get("extras", []))
+            _vehicles.append(vehicle)
+
+    return _vehicles, vehicle_classes, vehicle_extras
+
 
 locations = {
     "BER": {
