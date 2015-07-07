@@ -1,6 +1,4 @@
-{% if not xhr %}
-{% extends "layout.html" %}
-{% endif %}
+{% extends "layout_minimal.html" if xhr else "layout.html" %}
 
 {% block body %}
 <h2>{{ _(location.id) }}</h2>

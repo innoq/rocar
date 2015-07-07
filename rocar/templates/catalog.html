@@ -1,6 +1,4 @@
-{% if not xhr %}
-{% extends "layout.html" %}
-{% endif %}
+{% extends "layout_minimal.html" if xhr else "layout.html" %}
 
 {% macro form_with_state(action, method, exclude_states=[]) %}
 <form action="{{ action }}" method="{{ method }}"

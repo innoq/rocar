@@ -1,0 +1,5 @@
+{% if current_url %}
+<link rel="self" href="{{ current_url }}"> {# XXX: duplicates layout #}
+{% endif %}
+
+{% block body %}{% endblock %}
