@@ -15,6 +15,13 @@ if(historySupport) {
 init();
 
 function init(subtree) {
+	if(!subtree) {
+		$(document.body).on("change focus blur", "label.fancy input",
+				function(ev) {
+			syncLabelState.apply(this, arguments);
+		});
+	}
+
 	extract(".formix", subtree).each(function(i, form) {
 		formix(form, { after: onUpdate });
 		$("input:submit, button:submit", form).remove();
@@ -26,6 +33,12 @@ function init(subtree) {
 
 	extract(".geo-coordinates", subtree).each(function(i, list) {
 		spawnMap(list);
+	});
+
+	extract("label input:checkbox, label input:radio", subtree).
+			each(function(i, field) {
+		var label = syncLabelState.call(field);
+		label.addClass("fancy"); // TODO: rename
 	});
 }
 
@@ -44,6 +57,29 @@ function onPopState(ev) {
 		// reload to avoid application-specific caching
 		document.location = document.location.toString();
 	}
+}
+
+function syncLabelState(ev) {
+	var field = $(this);
+	var label = field.closest("label");
+	if(!ev || ev.type === "change") { // XXX: overloading
+		var selected = field.prop("checked");
+		label.toggleClass("unselected", !selected).
+			toggleClass("selected", selected);
+		// reset deactivated radio buttons
+		if(ev && selected && field.is(":radio")) {
+			var name = field.attr("name");
+			field.closest("form").find("input:radio").not(field).
+					each(function(i, node) {
+				if(node.name === name) {
+					syncLabelState.call(node);
+				}
+			});
+		}
+	} else {
+		label.toggleClass("focused", ev.type === "focusin");
+	}
+	return label;
 }
 
 function extract(selector, subtree) {
