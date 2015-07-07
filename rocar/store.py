@@ -1,5 +1,6 @@
 from textwrap import dedent
 
+
 locations = {
     "BER": {
         "coordinates": (52.516667, 13.383333),
