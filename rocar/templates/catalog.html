@@ -23,21 +23,33 @@
 			class="secondary-pane formix formix-sub",
 			**{ "data-sub": "location" }) %}
 		<h3>Locations</h3>
-		<ul class="selectable">
-			{% for loc in locations | sort(attribute="selected", reverse=True) %}
+		<ol class="selectable">
+			{% for loc in selected_locations %}
 			<li>
 				<label>
-					{% if loc.selected %}
 					<input type="checkbox" name="location" value="{{ loc.id }}"
 							checked>
-					{% else %}
+					{{ "drop off" if loop.index0 else "pick up" }}:
+					{{ loc.name }}
+				</label>
+			</li>
+			{% endfor %}
+		</ol>
+		{% if selected_locations and available_locations %}
+		<hr>
+		{% endif %}
+		{% if available_locations %}
+		<ul class="selectable">
+			{% for loc in available_locations %}
+			<li>
+				<label>
 					<input type="radio" name="location" value="{{ loc.id }}">
-					{% endif %}
 					{{ loc.name }}
 				</label>
 			</li>
 			{% endfor %}
 		</ul>
+		{% endif %}
 	{% endcall %}
 
 	<div class="primary-pane">
@@ -86,7 +98,7 @@
 			<div id="geo-view" class="primary-pane formix-sub"
 					data-sub="location">
 				<ol class="geo-coordinates">
-					{% for loc in locations | selectattr("selected") %}
+					{% for loc in selected_locations %}
 					<li>
 						<a href="geo:{{ loc.coordinates | join(",") }}">{{ loc.name }}</a>
 					</li>

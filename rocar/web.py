@@ -19,13 +19,15 @@ def frontpage():
 def catalog(): # TODO: move filtering into store module
     location_ids = store.vehicles.keys()
 
-    selected_locations = set(request.args.getlist("location")) # XXX: order matters (start vs. end)
-    locations = [Location(id, store.locations[id]["coordinates"],
-            id in selected_locations) for id in location_ids]
+    selected_location_ids = request.args.getlist("location") # NB: order matters
+    selected_locations = [Location(id, store.locations[id]["coordinates"], True)
+            for id in selected_location_ids]
+    available_locations = [] if len(selected_locations) == 2 else [Location(id,
+            store.locations[id]["coordinates"]) for id in location_ids]
 
     selected_vehicle_classes = set(request.args.getlist("vehicle-class"))
     selected_vehicle_extras = set(request.args.getlist("vehicle-extra"))
-    vehicles, vehicle_classes, vehicle_extras = store.get_vehicles(selected_locations)
+    vehicles, vehicle_classes, vehicle_extras = store.get_vehicles(selected_location_ids)
 
     selected_vehicle_id = request.args.get("vehicle", None)
     vehicles = [Vehicle(vehicle["id"],
@@ -44,7 +46,8 @@ def catalog(): # TODO: move filtering into store module
         "vehicle": [selected_vehicle_id] if selected_vehicle_id else []
     }
     return render("catalog.html", current_url=current_url,
-            selection_state=selection, locations=locations,
+            selection_state=selection, selected_locations=selected_locations,
+            available_locations=available_locations,
             vehicle_classes=(Selectable(id, id, id in selected_vehicle_classes)
                     for id in vehicle_classes),
             vehicle_extras=(Selectable(id, id, id in selected_vehicle_extras)
