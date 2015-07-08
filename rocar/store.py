@@ -132,7 +132,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "classes": ["sports"],
             "passengers": 2,
             "cost": 190.33,
-            "extras": []
+            "extras": ["ac"]
         }
     ],
     "LCY": [
@@ -143,7 +143,7 @@ vehicles = { # by location -- XXX: why not simply an attribute?
             "classes": ["sports"],
             "passengers": 2,
             "cost": 279.49,
-            "extras": []
+            "extras": ["ac"]
         }, {
             "id": 7,
             "make": "Jaguar",
