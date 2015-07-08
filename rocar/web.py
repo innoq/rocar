@@ -27,7 +27,8 @@ def catalog(): # TODO: move filtering into store module
 
     selected_vehicle_classes = set(request.args.getlist("vehicle-class"))
     selected_vehicle_extras = set(request.args.getlist("vehicle-extra"))
-    vehicles, vehicle_classes, vehicle_extras = store.get_vehicles(selected_location_ids)
+    vehicles, vehicle_classes, vehicle_extras = store.get_vehicles(
+            selected_location_ids[0:1])
 
     selected_vehicle_id = request.args.get("vehicle", None)
     vehicles = [Vehicle(vehicle["id"],
