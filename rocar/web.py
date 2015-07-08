@@ -41,7 +41,7 @@ def catalog(): # TODO: move filtering into store module
 
     current_url = url_for("catalog", **request.args) if request.is_xhr else None # XXX: parameter handling hacky?
     selection = {
-        "location": selected_locations,
+        "location": selected_location_ids,
         "vehicle-class": selected_vehicle_classes,
         "vehicle-extra": selected_vehicle_extras,
         "vehicle": [selected_vehicle_id] if selected_vehicle_id else []
