@@ -110,14 +110,12 @@ label.fancy.selected:before {
 	background-color: #EEE;
 }
 
-#geo-coordinates,
-#geo-coordinates a {
-	color: #FFF;
+/* full-height map */
+#geo-view {
+	display: flex;
 }
-
-#geo-coordinates {
+#geo-view .geo-coordinates {
+	flex: 1;
 	margin: 0;
-	padding-top: 1em;
-	padding-bottom: 1em;
-	background: linear-gradient(to bottom, #003973 10%, #E5E5BE 90%);
+	padding: 0;
 }

@@ -8,8 +8,7 @@
     "formix": "git+https://github.com/innoq/formix.git",
     "jquery": "^2.1.4",
     "leaflet": "^0.7.3",
-    "simplete": "git+https://github.com/innoq/simplete.git",
-    "uitil": "git+https://github.com/FND/uitil.git"
+    "simplete": "git+https://github.com/innoq/simplete.git"
   },
   "devDependencies": {
     "coffee-loader": "^0.7.2",
