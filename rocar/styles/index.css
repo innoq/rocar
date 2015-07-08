@@ -1,0 +1,6 @@
+@use postcss-import;
+@use autoprefixer(browsers: ["> 5%"]);
+
+@import "layout.css";
+@import "main.css";
+@import "../static/vendor/leaflet.css";

@@ -1,5 +1,5 @@
 *.pyc
 __pycache__
 /node_modules
-/rocar/static/bundle.js
+/rocar/static/bundle.*
 /rocar/static/vendor

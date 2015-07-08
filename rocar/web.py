@@ -138,8 +138,7 @@ def vehicle(make, model):
 
 def render(template, *args, **kwargs):
     kwargs["xhr"] = request.is_xhr
-    kwargs["styles"] = [url_for("static", filename=name) for name
-            in ["styles/layout.css", "styles/main.css", "vendor/leaflet.css"]]
+    kwargs["styles"] = [url_for("static", filename="bundle.css")]
     kwargs["scripts"] = [url_for("static", filename="bundle.js")]
     return render_template(template, *args, **kwargs)
 
