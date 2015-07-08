@@ -41,6 +41,15 @@ label { /* XXX: insufficiently generic? */
 	cursor: pointer;
 }
 
+footer .references {
+	display: inline;
+	list-style-type: none;
+}
+footer .references li {
+	float: right;
+	margin-left: 1em;
+}
+
 .omnibox {
 	position: relative;
 	float: right;
