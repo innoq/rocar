@@ -50,48 +50,9 @@ footer .references li {
 	margin-left: 1em;
 }
 
-.omnibox {
-	position: relative;
-	float: right;
-	width: 10em;
-}
-
-.suggestions {
-	position: absolute;
-	min-width: 100%;
-	z-index: 9;
-	background-color: #EEE;
-}
-
-.suggestions ul {
-	padding-left: 0;
-	list-style-type: none;
-}
-
-.suggestions,
-.suggestions a {
-	color: #000;
-}
-
 .selectable { /* TODO: rename */
 	padding: 0;
 	list-style-type: none;
-}
-
-label.fancy input {
-	position: absolute;
-	left: -9999em;
-}
-
-label.fancy.focused {
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-}
-
-label.fancy:before {
-	content: "◎";
-}
-label.fancy.selected:before {
-	content: "◉";
 }
 
 .location:before,
@@ -125,6 +86,7 @@ label.fancy.selected:before {
 }
 #geo-view .geo-coordinates {
 	flex: 1;
+	/* FIXME: only required because Leaflet container remains an OL (invalid) */
 	margin: 0;
 	padding: 0;
 }

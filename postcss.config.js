@@ -1,5 +1,5 @@
 module.exports = {
 	"postcss-use": {
-		modules: ["postcss-import", "autoprefixer"]
+		modules: ["postcss-import", "postcss-nested", "autoprefixer"]
 	}
 };

@@ -1,0 +1,22 @@
+.omnibox {
+	position: relative;
+	float: right;
+	width: 10em;
+}
+
+.suggestions {
+	position: absolute;
+	min-width: 100%;
+	z-index: 9;
+	background-color: #EEE;
+
+	&,
+	a {
+		color: #000;
+	}
+
+	ul {
+		padding-left: 0;
+		list-style-type: none;
+	}
+}

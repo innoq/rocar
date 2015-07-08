@@ -1,0 +1,18 @@
+label.fancy input {
+	position: absolute;
+	left: -9999em;
+}
+
+label.fancy.focused {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+label.fancy {
+	&:before {
+		content: "◎";
+	}
+
+	&.selected:before {
+		content: "◉";
+	}
+}
