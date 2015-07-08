@@ -15,6 +15,15 @@ def get_vehicles(location_ids=None):
     return _vehicles, vehicle_classes, vehicle_extras
 
 
+def filter_vehicles(vehicles, vehicle_classes, vehicle_extras):
+    for vehicle in vehicles:
+        classes = set(vehicle.get("classes", []))
+        extras = set(vehicle.get("extras", []))
+        if ((not vehicle_classes or classes.intersection(vehicle_classes)) and
+                (not vehicle_extras or extras.issuperset(vehicle_extras))):
+            yield vehicle
+
+
 locations = {
     "BER": {
         "coordinates": (52.516667, 13.383333),

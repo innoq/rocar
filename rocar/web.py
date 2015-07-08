@@ -29,21 +29,11 @@ def catalog(): # TODO: move filtering into store module
 
     selected_vehicle_id = request.args.get("vehicle", None)
     vehicles = [Vehicle(vehicle["id"],
-                    "%s %s" % (vehicle["make"], vehicle["model"]),
-                    vehicle["passengers"], vehicle["cost"],
-                    str(vehicle["id"]) == selected_vehicle_id)
-            for vehicle in vehicles if # XXX: inefficient
-            (
-                len(selected_vehicle_classes) == 0
-                or
-                set(vehicle.get("classes", [])).
-                        intersection(selected_vehicle_classes)
-            ) and (
-                len(selected_vehicle_extras) == 0 or
-                set(vehicle.get("extras", [])).
-                        issuperset(selected_vehicle_extras)
-            )
-    ]
+                "%s %s" % (vehicle["make"], vehicle["model"]),
+                vehicle["passengers"], vehicle["cost"],
+                str(vehicle["id"]) == selected_vehicle_id)
+            for vehicle in store.filter_vehicles(vehicles,
+                    selected_vehicle_classes, selected_vehicle_extras)]
     selected_vehicle = next((v for v in vehicles if v.selected), None) # XXX: inefficient
 
     current_url = url_for("catalog", **request.args) if request.is_xhr else None # XXX: parameter handling hacky?
