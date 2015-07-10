@@ -1,5 +1,39 @@
 from textwrap import dedent
 
+from flask import url_for
+
+from . import i18n
+
+
+def search(query):
+    query = query.lower()
+    results = []
+
+    for location_id, meta in locations.items():
+        if (query in meta["summary"].lower() or
+                query in meta["details"].lower()):
+            results.append({
+                "type": "location",
+                "name": i18n.gettext(location_id), # XXX: i18n does not belong here
+                "desc": meta["summary"],
+                "url": url_for("location", location_id=location_id)
+            })
+
+    for make, models in vehicle_info.items():
+        for model, desc in models.items():
+            if (query in make.lower() or
+                    query in model.lower() or
+                    query in desc.lower()):
+                results.append({
+                    "type": "vehicle",
+                    "name": "%s %s" % (make, model),
+                    "desc": desc,
+                    "url": url_for("vehicle", make=make, model=model)
+                })
+
+    return results
+
+
 def get_vehicles(location_ids=None):
     location_ids = location_ids or vehicles.keys()
 

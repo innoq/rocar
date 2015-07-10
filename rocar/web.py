@@ -61,32 +61,8 @@ def search(): # XXX: very inefficient
     query = request.args.get("q", None)
     message = None
 
-    results = []
     if query:
-        query = query.lower()
-
-        for location_id, meta in store.locations.items():
-            if (query in meta["summary"].lower() or
-                    query in meta["details"].lower()):
-                results.append({
-                    "type": "location",
-                    "name": i18n.gettext(location_id),
-                    "desc": meta["summary"],
-                    "url": url_for("location", location_id=location_id)
-                })
-
-        for make, models in store.vehicle_info.items():
-            for model, desc in models.items():
-                if (query in make.lower() or
-                        query in model.lower() or
-                        query in desc.lower()):
-                    results.append({
-                        "type": "vehicle",
-                        "name": "%s %s" % (make, model),
-                        "desc": desc,
-                        "url": url_for("vehicle", make=make, model=model)
-                    })
-
+        results = store.search(query)
         if not results:
             message = "no results for '%s'" % query
     else:
