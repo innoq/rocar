@@ -19,6 +19,11 @@ def frontpage():
 def catalog(): # TODO: move filtering into store module
     location_ids = store.vehicles.keys()
 
+    message = None
+    promo = request.args.get("promo")
+    if promo:
+        message = "sorry, but the promotion code '%s' has expired" % promo # TODO: whitelist to avoid abuse
+
     selected_location_ids = request.args.getlist("location") # NB: order matters
     selected_locations = [Location(id, store.locations[id]["coordinates"], True)
             for id in selected_location_ids]
@@ -30,7 +35,7 @@ def catalog(): # TODO: move filtering into store module
     vehicles, vehicle_classes, vehicle_extras = store.get_vehicles(
             selected_location_ids[0:1])
 
-    selected_vehicle_id = request.args.get("vehicle", None)
+    selected_vehicle_id = request.args.get("vehicle")
     vehicles = [Vehicle(vehicle["id"],
                 "%s %s" % (vehicle["make"], vehicle["model"]),
                 vehicle["passengers"], vehicle["cost"],
@@ -53,7 +58,7 @@ def catalog(): # TODO: move filtering into store module
                     for id in vehicle_classes),
             vehicle_extras=(Selectable(id, id, id in selected_vehicle_extras)
                     for id in vehicle_extras),
-            vehicles=vehicles, vehicle=selected_vehicle)
+            vehicles=vehicles, vehicle=selected_vehicle, flash=message)
 
 
 @app.route("/search")
@@ -71,17 +76,17 @@ def search(): # XXX: very inefficient
             "type": "vehicle",
             "name": "VW Beetle",
             "desc": "feature creep",
-            "url": url_for("frontpage") # TODO
+            "url": url_for("catalog", promo="beetle")
         }, {
             "type": "vehicle",
             "name": "Ford F-150",
             "desc": "because sometimes there are pebbles on the road",
-            "url": url_for("frontpage") # TODO
+            "url": url_for("catalog", promo="f150")
         }, {
             "type": "location",
             "name": "Sydney",
             "desc": "celebrating Shark Week, every week",
-            "url": url_for("frontpage") # TODO
+            "url": url_for("catalog", promo="syd")
         }]
 
     return render("search.html", results=results, message=message)

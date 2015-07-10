@@ -22,6 +22,9 @@
 			<small>rental company</small>
 		</h1>
 	</nav>
+	{% if flash %}
+	<div>{{ flash }}</div>
+	{% endif %}
 
 	{% block body %}{% endblock %}
 
