@@ -70,12 +70,14 @@ def catalog(): # TODO: move filtering into store module
             vehicles=vehicles, vehicle=selected_vehicle, flash=message)
 
 
-@app.route("/booking")
+@app.route("/booking", methods=["GET", "POST"])
 def booking():
-    location_ids = request.args.getlist("location") # NB: order matters
+    params = request.form if request.method == "POST" else request.args
+
+    location_ids = params.getlist("location") # NB: order matters
     locations = [Location(id, None) for id in location_ids]
 
-    vehicle_id = request.args.get("vehicle")
+    vehicle_id = params.get("vehicle")
     # XXX: awkward and inefficient
     vehicles, _, _ = store.get_vehicles(location_ids[0:1])
     vehicle = next((v for v in vehicles if str(v["id"]) == vehicle_id), None)
@@ -83,7 +85,10 @@ def booking():
             "%s %s" % (vehicle["make"], vehicle["model"]),
             vehicle["passengers"], vehicle["cost"])
 
-    return render("booking.html", locations=locations, vehicle=vehicle)
+    coupon = params.get("coupon")
+
+    return render("booking.html", locations=locations, vehicle=vehicle,
+            coupon=coupon)
 
 
 @app.route("/search")

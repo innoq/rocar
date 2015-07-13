@@ -12,10 +12,18 @@
 	{% endfor %}
 </ol>
 
-<form action="" method="post">
-	<label>
+<form action="" method="post" class="formix">
+	{% for loc in locations %}
+		<input type="hidden" name="location" value="{{ loc.id }}">
+	{% endfor %}
+	<input type="hidden" name="vehicle" value="{{ vehicle.id }}">
+
+	<label id="coupon" class="formix-sub" data-sub="coupon">
 		discount code:
-		<input type="text" name="coupon">
+		<input type="text" name="coupon" value="{{ coupon if coupon }}">
+		{% if coupon %}
+		<p>sorry, but this discount code is invalid</p>
+		{% endif %}
 	</label>
 
 	<label>

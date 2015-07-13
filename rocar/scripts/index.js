@@ -24,7 +24,7 @@ function init(subtree) {
 
 	extract(".formix", subtree).each(function(i, form) {
 		formix(form, { after: onUpdate });
-		$("input:submit, button:submit", form).remove();
+		$("input:submit, button:submit", form).not(".manual").hide(); // XXX: bad class name
 	});
 
 	extract(".omnibox input[type=search]", subtree).each(function(i, field) {
