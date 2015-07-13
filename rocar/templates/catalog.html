@@ -138,13 +138,17 @@
 		{% endcall %}
 	</div>
 
-	<div id="tally" class="auxiliary-pane formix-sub" data-sub="vehicle">
+	<div id="tally" class="auxiliary-pane formix-sub" data-sub="location vehicle">
 		{% if vehicle %}
 		<h3>Total Cost</h3>
 		<p>${{ vehicle.cost }}</p>
 		<p>${{ (vehicle.cost / 12) | round(2) }} insurance fee</p>
 		<hr>
 		<p><strong>${{ (vehicle.cost + vehicle.cost / 12) | round(2) }}</strong></p>
+
+			{% if booking_url %}
+			<p><a href="{{ booking_url }}">confirm</a></p>
+			{% endif %}
 		{% endif %}
 	</div>
 </main>

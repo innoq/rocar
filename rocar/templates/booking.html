@@ -1,0 +1,28 @@
+{% extends "layout_minimal.html" if xhr else "layout.html" %}
+
+{% block body %}
+<p>{{ vehicle.name }}</p>
+
+<ol class="selectable"> {# XXX: class abuse #}
+	{% for loc in locations %}
+	<li>
+		{{ "drop off" if loop.index0 else "pick up" }}:
+		{{ loc.name }}
+	</li>
+	{% endfor %}
+</ol>
+
+<form action="" method="post">
+	<label>
+		discount code:
+		<input type="text" name="coupon">
+	</label>
+
+	<label>
+		referred by:
+		<input type="search" name="referral">
+	</label>
+
+	<button type="submit" class="manual">reserve</button>
+</form>
+{% endblock %}

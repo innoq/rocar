@@ -27,8 +27,6 @@ def catalog(): # TODO: move filtering into store module
     selected_location_ids = request.args.getlist("location") # NB: order matters
     selected_locations = [Location(id, store.locations[id]["coordinates"], True)
             for id in selected_location_ids]
-    available_locations = [] if len(selected_locations) == 2 else [Location(id,
-            store.locations[id]["coordinates"]) for id in location_ids]
 
     selected_vehicle_classes = set(request.args.getlist("vehicle-class"))
     selected_vehicle_extras = set(request.args.getlist("vehicle-extra"))
@@ -44,6 +42,17 @@ def catalog(): # TODO: move filtering into store module
                     selected_vehicle_classes, selected_vehicle_extras)]
     selected_vehicle = next((v for v in vehicles if v.selected), None) # XXX: inefficient
 
+    if len(selected_locations) == 2:
+        available_locations = []
+        booking_url = url_for("booking", **{
+            "location": selected_location_ids,
+            "vehicle": selected_vehicle_id
+        })
+    else:
+        available_locations = [Location(id, store.locations[id]["coordinates"])
+                for id in location_ids]
+        booking_url = None
+
     current_url = url_for("catalog", **request.args) if request.is_xhr else None # XXX: parameter handling hacky?
     selection = {
         "location": selected_location_ids,
@@ -51,7 +60,7 @@ def catalog(): # TODO: move filtering into store module
         "vehicle-extra": selected_vehicle_extras,
         "vehicle": [selected_vehicle_id] if selected_vehicle_id else []
     }
-    return render("catalog.html", current_url=current_url,
+    return render("catalog.html", current_url=current_url, booking_url=booking_url,
             selection_state=selection, selected_locations=selected_locations,
             available_locations=available_locations,
             vehicle_classes=(Selectable(id, id, id in selected_vehicle_classes)
@@ -59,6 +68,22 @@ def catalog(): # TODO: move filtering into store module
             vehicle_extras=(Selectable(id, id, id in selected_vehicle_extras)
                     for id in vehicle_extras),
             vehicles=vehicles, vehicle=selected_vehicle, flash=message)
+
+
+@app.route("/booking")
+def booking():
+    location_ids = request.args.getlist("location") # NB: order matters
+    locations = [Location(id, None) for id in location_ids]
+
+    vehicle_id = request.args.get("vehicle")
+    # XXX: awkward and inefficient
+    vehicles, _, _ = store.get_vehicles(location_ids[0:1])
+    vehicle = next((v for v in vehicles if str(v["id"]) == vehicle_id), None)
+    vehicle = Vehicle(vehicle["id"],
+            "%s %s" % (vehicle["make"], vehicle["model"]),
+            vehicle["passengers"], vehicle["cost"])
+
+    return render("booking.html", locations=locations, vehicle=vehicle)
 
 
 @app.route("/search")
