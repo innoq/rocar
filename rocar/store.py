@@ -189,3 +189,28 @@ vehicles = { # by location -- XXX: why not simply an attribute?
         }
     ]
 }
+
+# names adapted from http://uinames.com
+# images from http://uifaces.com/authorized
+users = {
+    "mzul": {
+        "name": "Magdalena Zuluaga",
+        "avatar": "annapickard.jpg"
+    },
+    "lhei": {
+        "name": "Emma Vatanen",
+        "avatar": "uxceo.jpg"
+    },
+    "jmon": {
+        "name": "Charlie Monteiro",
+        "avatar": "brad_frost.jpg"
+    },
+    "mme": {
+        "name": "Frank Meyers",
+        "avatar": "gerrenlamson.jpg"
+    },
+    "aoy": {
+        "name": "Peter Oyebanji",
+        "avatar": "rem.jpg"
+    }
+}

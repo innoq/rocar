@@ -147,6 +147,27 @@ def vehicle(make, model):
     return render("vehicle.html", make=make, model=model, desc=desc)
 
 
+@app.route("/users")
+def users():
+    query = request.args.get("q", None)
+    if query:
+        query = query.lower()
+
+    # XXX: crude, belongs into store
+    results = []
+    for username, user in store.users.items():
+        name = user["name"]
+        if query is None or query in username.lower() or query in name.lower():
+            results.append({
+                "username": username,
+                "name": name,
+                "avatar": url_for("static", filename="img/users/%s" % user["avatar"])
+            })
+
+    error = None if results else "no results for '%s'" % query
+    return render("users.html", users=results, error=error)
+
+
 def render(template, *args, **kwargs):
     kwargs["xhr"] = request.is_xhr
     kwargs["styles"] = [url_for("static", filename="bundle.css")]

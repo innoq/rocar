@@ -3,6 +3,7 @@ module.exports = {
 	input: "rocar/styles/index.css",
 	output: "rocar/static/bundle.css",
 	"postcss-use": {
-		modules: ["postcss-import", "postcss-nested", "autoprefixer"]
+		modules: ["postcss-import", "postcss-nested", "postcss-css-variables",
+				"autoprefixer"]
 	}
 };

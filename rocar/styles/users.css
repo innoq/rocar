@@ -1,0 +1,21 @@
+.users {
+	--size: 32px;
+
+	padding-left: 0;
+	line-height: var(--size);
+	list-style-type: none;
+
+	li {
+		clear: left;
+		margin-bottom: 0.5em;
+	}
+
+	img {
+		display: block;
+		width: var(--size);
+		height: var(--size);
+		float: left;
+		margin-right: 0.5em;
+		border-radius: var(--size);
+	}
+}
