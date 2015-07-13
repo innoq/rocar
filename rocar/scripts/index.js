@@ -27,8 +27,9 @@ function init(subtree) {
 		$("input:submit, button:submit", form).not(".manual").hide(); // XXX: bad class name
 	});
 
-	extract(".omnibox input[type=search]", subtree).each(function(i, field) {
-		simplete(field);
+	extract(".autocomplete input[type=search], input.autocomplete", subtree).
+			each(function(i, field) {
+		simplete(field, { autoselect: "first" });
 	});
 
 	extract(".geo-coordinates", subtree).each(function(i, list) {

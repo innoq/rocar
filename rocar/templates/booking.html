@@ -28,7 +28,9 @@
 
 	<label>
 		referred by:
-		<input type="search" name="referral">
+		<input type="search" name="referral" class="autocomplete"
+				data-formaction="{{ url_for("users") }}" data-formmethod="get"
+				data-scope="self" data-parameter="q">
 	</label>
 
 	<button type="submit" class="manual">reserve</button>
