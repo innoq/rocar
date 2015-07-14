@@ -1,8 +1,3 @@
-@use postcss-import;
-@use postcss-nested;
-@use postcss-css-variables;
-@use autoprefixer(browsers: ["> 5%"]);
-
 @import "../static/vendor/leaflet.css";
 
 @import "fancy_selectables.css";

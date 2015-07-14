@@ -1,9 +1,9 @@
 module.exports = {
-	use: "postcss-use",
+	use: ["postcss-import", "postcss-nested", "postcss-css-variables",
+			"autoprefixer"],
 	input: "rocar/styles/index.css",
 	output: "rocar/static/bundle.css",
-	"postcss-use": {
-		modules: ["postcss-import", "postcss-nested", "postcss-css-variables",
-				"autoprefixer"]
+	autoprefixer: {
+		browsers: ["> 5%"]
 	}
 };
