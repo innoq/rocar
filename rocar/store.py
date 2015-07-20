@@ -197,19 +197,19 @@ users = {
         "name": "Magdalena Zuluaga",
         "avatar": "annapickard.jpg"
     },
-    "lhei": {
+    "evat": {
         "name": "Emma Vatanen",
         "avatar": "uxceo.jpg"
     },
-    "jmon": {
+    "cmon": {
         "name": "Charlie Monteiro",
         "avatar": "brad_frost.jpg"
     },
-    "mme": {
+    "fme": {
         "name": "Frank Meyers",
         "avatar": "gerrenlamson.jpg"
     },
-    "aoy": {
+    "poy": {
         "name": "Peter Oyebanji",
         "avatar": "rem.jpg"
     }
