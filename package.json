@@ -1,9 +1,10 @@
 {
   "scripts": {
-    "dev": "webpack --progress --colors --watch",
+    "dev-css": "postcss -c postcss.config.js -w",
+    "dev-js": "webpack --progress --colors --watch",
     "dist": "npm run css && npm run js",
-    "js": "webpack",
     "css": "postcss -c postcss.config.js",
+    "js": "webpack",
     "assets": "./bin/assetcopy"
   },
   "dependencies": {
@@ -15,9 +16,9 @@
   "devDependencies": {
     "autoprefixer": "^5.2.0",
     "coffee-loader": "^0.7.2",
-    "postcss-cli": "^1.4.0",
+    "postcss-cli": "^1.5.0",
     "postcss-css-variables": "^0.4.0",
-    "postcss-import": "^6.1.1",
+    "postcss-import": "^6.2.0",
     "postcss-nested": "^0.3.2",
     "webpack": "^1.10.0"
   }

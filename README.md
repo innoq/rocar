@@ -13,8 +13,9 @@ Getting Started
 * compile JavaScript modules
 
         $ npm run dist
-        # alternatively
-        $ npm run dev # watches filesystem changes and recompiles automatically
+        # alternatively, watch file system changes and recompile automatically
+        $ npm run dev-css
+        $ npm run dev-js
 
 * launch server
 
