@@ -4,10 +4,10 @@ import os
 import shutil
 
 
-vendor_dir = "rocar/static/vendor/"
+vendor_dir = "rocar/static/vendor"
 
 assets = {
-	"node_modules/leaflet/dist/leaflet.css": vendor_dir,
+	"node_modules/leaflet/dist/leaflet.css": "%s/" % vendor_dir,
 	"node_modules/leaflet/dist/images": "%s/leaflet_images" % vendor_dir
 }
 
